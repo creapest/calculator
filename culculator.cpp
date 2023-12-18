@@ -92,7 +92,10 @@ bool is_num(string str)
         if ((isdigit(str[i]) == false) and (str[i] != '.'))
         {
             count++;
-            break;
+            if (str[i] != '-')
+            {
+                break;
+            }
         }
         i++;
     }
@@ -198,7 +201,6 @@ vector<string> dif_calculation(string to_calc)
 
     for (int i = 0; i < to_calc.length(); i++) // проход по всему переданному выражению
     {
-
         if (figures.find(to_calc[i]) < figures.length()) // если цифра
         {
             if (temp_str.length() == 0) // если цифра и темп пустой
@@ -215,14 +217,21 @@ vector<string> dif_calculation(string to_calc)
                 {
                     if (temp_str[0] == '-') // если цифра и в темпе минус
                     {
-                        if (figures.find(vec_str[vec_str.size() - 1]) < figures.length()) // если цифра и в темпе минус и предыдущее значение - цифра
+                        if (vec_str.size() != 0)
                         {
-                            vec_str.push_back(temp_str);
-                            temp_str = to_calc[i];
+                            if (figures.find(vec_str[vec_str.size() - 1]) < figures.length()) // если цифра и в темпе минус и предыдущее значение - цифра
+                            {
+                                vec_str.push_back(temp_str);
+                                temp_str = to_calc[i];
+                            }
+                            else // если цифра и в темпе минус и предыдущее значение - знак
+                            {
+                                temp_str += to_calc[i];
+                            }
                         }
-                        else // если цифра и в темпе минус и предыдущее значение - знак
+                        else
                         {
-                            temp_str += to_calc[i];
+                            temp_str += to_calc[i]; // если цифра и в темпе минус и предыдущего нет
                         }
                     }
                     else
