@@ -1,10 +1,11 @@
-/*это калькулятор для ручного ввода*/
+/*этот файл для автоматического теста*/
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <math.h>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -19,27 +20,29 @@ bool find(vector<string> vec, string item);
 string convert(long double myLongDouble);
 int count(string str, int item);
 
+string calculator(string str);
+
 const vector<string> main_opers = {"*", "/", "**", "//", "%", "x", "X", ":"};
 const string double_lits = "/*";
 const string figures = "1234567890.";
 
-int main()
+string calculator(string str)
 {
-    int point;
-    string str;
-
-    while (true)
-    {
-        cout << "Введите пример. Если хотите закончить, введите 0:  ";
-        getline(cin, str);
-        string temp;
-        if ((str == "0") or (str == temp))
-        {
-            break;
-        }
-        string res = main_calculate(str);
-        cout << "Ответ: " << res << endl;
-    }
+    // int point;
+    // string str;
+    string res = main_calculate(str);
+    return res;
+    // while (true)
+    // {
+    //     cout << "Введите пример. Если хотите закончить, введите 0:  ";
+    //     getline(cin, str);
+    //     if (str == "0")
+    //     {
+    //         break;
+    //     }
+    //     string res = main_calculate(str);
+    //     cout << "Ответ: " << res << endl;
+    // }
 }
 
 //@brief считает количство данных элементов в строке
