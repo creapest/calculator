@@ -29,17 +29,20 @@ int main()
     {
         string ans = calculator(prim[i]);
         string temp = anses[i];
-        if (stold(ans) == stold(temp))
+
+        if (ans == temp)
         {
             cout << i + 1 << " - ый пример решён верно" << endl;
         }
         else
         {
-            cout << i + 1 << " - ый пример решён неверно" << endl;
+            cout << i + 1 << " - ый пример решён неверно, но скорее всего изначально дан неверный ответ" << endl;
             cout << fixed << stold(ans) << endl;
             cout << fixed << stold(temp) << endl;
         }
     }
+    string a;
+    cin >> a;
 
     return 0;
 }

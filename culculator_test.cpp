@@ -11,24 +11,48 @@ using namespace std;
 string del_whitespace(string to_del);
 string main_calculate(string to_calc);
 vector<string> dif_calculation(string _to_calc);
-long double simp_calculation(long double num_1, long double num_2, int num_1_int, int num_2_int, string oper);
+int simp_calculation(int num_1, int num_2, int num_1_int, int num_2_int, string oper);
 string full_calculation(string _to_calc);
 bool is_num(string str);
 string join(vector<string> vec);
 bool find(vector<string> vec, string item);
-string convert(long double myLongDouble);
+string convert(int myLongDouble);
 int count(string str, int item);
+string convert_div_mult(string str);
 
 string calculator(string str);
 
 const vector<string> main_opers = {"*", "/", "**", "//", "%", "x", "X", ":"};
 const string double_lits = "/*";
 const string figures = "1234567890.";
+const string mult = "*xX";
+const string divis = "/:";
 
 string calculator(string str)
 {
-    string res = main_calculate(str);
+    string res = main_calculate(convert_div_mult(str));
     return res;
+}
+
+string convert_div_mult(string str)
+{
+    string temp_str;
+    for (int i = 0; i < str.length(); i++)
+    {
+        if (mult.find(str[i]) < 3)
+        {
+            temp_str += "*";
+        }
+        if (divis.find(str[i]) < 2)
+        {
+            temp_str += "/";
+        }
+        if (((divis.find(str[i]) < 3) or (mult.find(str[i])) < 2) == 0)
+        {
+            temp_str += str[i];
+        }
+    }
+    return temp_str;
 }
 
 //@brief считает количство данных элементов в строке
@@ -48,10 +72,10 @@ int count(string str, int item)
     return k;
 }
 
-//@brief меняет тип элемента с string на long double
+//@brief меняет тип элемента с string на int
 //@param myLongDouble элемент, который нужно перевести в string
 //@return элемент типа string
-string convert(long double myLongDouble)
+string convert(int myLongDouble)
 {
     stringstream blah;
     blah << myLongDouble;
@@ -286,9 +310,9 @@ vector<string> dif_calculation(string to_calc)
 //@param num_2_int число справа без остатка
 //@param oper математическая операция
 //@return результат операции
-long double simp_calculation(long double num_1, long double num_2, int num_1_int, int num_2_int, string oper)
+int simp_calculation(int num_1, int num_2, int num_1_int, int num_2_int, string oper)
 {
-    long double res;
+    int res;
     if ((oper == "*") or (oper == "x") or (oper == "X"))
     {
         res = num_1 * num_2;
@@ -355,11 +379,11 @@ string full_calculation(string _to_calc)
     {
         if ((to_calc[0][0] == '-') and (to_calc[1][0] == '-'))
         {
-            long double num_1 = stold(to_calc[0]);
-            long double num_2 = stold(to_calc[1]);
+            int num_1 = stold(to_calc[0]);
+            int num_2 = stold(to_calc[1]);
             int num_1_int = stoi(to_calc[0]);
             int num_2_int = stoi(to_calc[1]);
-            long double res = simp_calculation(num_1, num_2, num_1_int, num_2_int, "+");
+            int res = simp_calculation(num_1, num_2, num_1_int, num_2_int, "+");
             return convert(res);
         }
         for (int i = 1; i < to_calc_len - 1; i++)
@@ -385,7 +409,12 @@ string full_calculation(string _to_calc)
                 }
                 if (k1 != 0)
                 {
-                    long double num_1, num_2, res;
+                    if ((join(to_calc).find("*") > join(to_calc).find("/")) and (find(to_calc, "*") < i) and (join(to_calc).find("*") < join(to_calc).length()) and (to_calc[i] != "*"))
+                    {
+                        i++;
+                        continue;
+                    }
+                    int num_1, num_2, res;
                     num_1 = stold(to_calc[i - 1]);
                     num_2 = stold(to_calc[i + 1]);
                     int num_1_int = stoi(to_calc[i - 1]);

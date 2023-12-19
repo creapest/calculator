@@ -397,6 +397,11 @@ string full_calculation(string _to_calc)
                 }
                 if (k1 != 0)
                 {
+                    if ((join(to_calc).find("*") > join(to_calc).find("/")) and (find(to_calc, "*") < i) and (join(to_calc).find("*") < join(to_calc).length()) and (to_calc[i] != "*"))
+                    {
+                        i++;
+                        continue;
+                    }
                     long double num_1, num_2, res;
                     num_1 = stold(to_calc[i - 1]);
                     num_2 = stold(to_calc[i + 1]);
