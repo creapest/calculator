@@ -38,7 +38,7 @@ int main()
             break;
         }
         string res = main_calculate(str);
-        cout << "Ответ: " << res << endl;
+        cout << "Ответ: " << fixed << stold(res) << endl;
     }
 }
 
@@ -92,8 +92,16 @@ bool is_num(string str)
     int i = 0, count = 0;
     while (str[i])
     {
-        if ((isdigit(str[i]) == false) and (str[i] != '.'))
+        if ((isdigit(str[i]) == false) and (str[i] != '.') and (str[i] != 'e'))
         {
+            if (i != str.length() - 1)
+            {
+                if ((str[i] == '+') and (str[i - 1] == 'e'))
+                {
+                    i++;
+                    continue;
+                }
+            }
             count++;
             if (str[i] != '-')
             {
@@ -204,7 +212,6 @@ vector<string> dif_calculation(string to_calc)
 
     for (int i = 0; i < to_calc.length(); i++) // проход по всему переданному выражению
     {
-        // cout << to_calc[i] << endl;
         if (figures.find(to_calc[i]) < figures.length()) // если цифра
         {
             if (temp_str.length() == 0) // если цифра и темп пустой
@@ -350,7 +357,6 @@ string full_calculation(string _to_calc)
         return main_calculate(_to_calc);
     }
     vector<string> to_calc = dif_calculation(_to_calc);
-    // print(to_calc);
     int to_calc_len = to_calc.size();
     if (find(to_calc, "("))
     {

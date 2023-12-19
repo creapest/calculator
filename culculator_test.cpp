@@ -5,7 +5,6 @@
 #include <vector>
 #include <math.h>
 #include <sstream>
-#include <fstream>
 
 using namespace std;
 
@@ -28,21 +27,8 @@ const string figures = "1234567890.";
 
 string calculator(string str)
 {
-    // int point;
-    // string str;
     string res = main_calculate(str);
     return res;
-    // while (true)
-    // {
-    //     cout << "Введите пример. Если хотите закончить, введите 0:  ";
-    //     getline(cin, str);
-    //     if (str == "0")
-    //     {
-    //         break;
-    //     }
-    //     string res = main_calculate(str);
-    //     cout << "Ответ: " << res << endl;
-    // }
 }
 
 //@brief считает количство данных элементов в строке
@@ -95,8 +81,16 @@ bool is_num(string str)
     int i = 0, count = 0;
     while (str[i])
     {
-        if ((isdigit(str[i]) == false) and (str[i] != '.'))
+        if ((isdigit(str[i]) == false) and (str[i] != '.') and (str[i] != 'e'))
         {
+            if (i != str.length() - 1)
+            {
+                if ((str[i] == '+') and (str[i - 1] == 'e'))
+                {
+                    i++;
+                    continue;
+                }
+            }
             count++;
             if (str[i] != '-')
             {
@@ -204,10 +198,8 @@ vector<string> dif_calculation(string to_calc)
 {
     vector<string> vec_str;
     string temp_str = "";
-
     for (int i = 0; i < to_calc.length(); i++) // проход по всему переданному выражению
     {
-        // cout << to_calc[i] << endl;
         if (figures.find(to_calc[i]) < figures.length()) // если цифра
         {
             if (temp_str.length() == 0) // если цифра и темп пустой
@@ -353,7 +345,6 @@ string full_calculation(string _to_calc)
         return main_calculate(_to_calc);
     }
     vector<string> to_calc = dif_calculation(_to_calc);
-    // print(to_calc);
     int to_calc_len = to_calc.size();
     if (find(to_calc, "("))
     {
