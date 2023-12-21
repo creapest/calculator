@@ -12,8 +12,8 @@ int main()
     vector<string> prim;
     vector<string> anses;
     string s;
-    string path1 = "C:/Users/cmert/Desktop/ucheba/informatica/univer/plusa/calkulate/test_2.txt";
-    string path2 = "C:/Users/cmert/Desktop/ucheba/informatica/univer/plusa/calkulate/test_2_ans.txt";
+    string path1 = "C:/Users/cmert/Desktop/ucheba/informatica/univer/plusa/calkulate/test/test_2.txt";
+    string path2 = "C:/Users/cmert/Desktop/ucheba/informatica/univer/plusa/calkulate/test/test_2_ans.txt";
     ifstream file1(path1);
     ifstream file2(path2);
 
